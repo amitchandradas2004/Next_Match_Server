@@ -51,6 +51,10 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ message: "Database connection failed" });
   }
 });
+
+app.get("/api/health", (req: Request, res: Response) => {
+  res.send("OK");
+});
 //post aparments api is here
 app.post('/api/listings', async (req: Request, res: Response) => {
   const db = await connectToDatabase();
