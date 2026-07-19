@@ -25,13 +25,13 @@ function extractSessionToken(cookieHeader: string): string | undefined {
     return acc;
   }, {} as Record<string, string>);
 
-  const rawValue = cookies["better-auth.session_token"];
+  const rawValue =
+    cookies["__Secure-better-auth.session_token"] ||
+    cookies["better-auth.session_token"];
+
   if (!rawValue) return undefined;
 
-  // Cookie values arrive URL-encoded (e.g. %2B for '+', %3D for '=')
   const decoded = decodeURIComponent(rawValue);
-
-  // Better Auth format is "<token>.<hmac_signature>" — we only need the token part
   return decoded.split(".")[0];
 }
 
